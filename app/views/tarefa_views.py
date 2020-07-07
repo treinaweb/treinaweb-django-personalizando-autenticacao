@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from ..forms import TarefaForm
+from ..forms.tarefa_forms import TarefaForm
 from ..entidades.tarefa import Tarefa
 from ..services import tarefa_service
 
