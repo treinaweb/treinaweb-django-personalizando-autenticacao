@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect
 from ..forms.usuario_forms import UsuarioForm
 from ..entidades.usuario import Usuario
+from ..services import usuario_service
 
 
 def cadastrar_usuario(request):
@@ -15,6 +16,7 @@ def cadastrar_usuario(request):
             data_nascimento = form_usuario.cleaned_data["data_nascimento"]
             password1 = form_usuario.cleaned_data["password1"]
             usuario_novo = Usuario(nome=nome, email=email, data_nascimento=data_nascimento, password=password1)
+            usuario_service.cadastrar_usuario(usuario_novo)
             return redirect('listar_tarefas')
     else:
         form_usuario = UsuarioForm()

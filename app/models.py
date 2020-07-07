@@ -1,5 +1,6 @@
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
+from .manager import UsuarioManager
 
 # Create your models here.
 
@@ -15,6 +16,8 @@ class Tarefa(models.Model):
     prioridade = models.CharField(max_length=1, choices=PRIORIDADE_CHOICES, null=False, blank=False)
 
 class Usuario(AbstractBaseUser):
+    objects = UsuarioManager()
+
     nome = models.CharField(max_length=30, null=False, blank=False)
     email = models.EmailField(null=False, blank=False, unique=True)
     data_nascimento = models.DateField(null=False, blank=False)
