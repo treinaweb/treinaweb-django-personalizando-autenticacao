@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from ..forms.usuario_forms import UsuarioForm
 from ..entidades.usuario import Usuario
 from ..services import usuario_service
+from ..forms.login_forms import LoginForm
 
 
 def cadastrar_usuario(request):
@@ -24,17 +25,19 @@ def cadastrar_usuario(request):
 
 def logar_usuario(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-        usuario = authenticate(request, username=username, password=password)
-        if usuario is not None:
-            login(request, usuario)
-            return redirect('listar_tarefas')
-        else:
-            messages.error(request, 'As credenciais estão incorretas')
-            return redirect('logar_usuario')
+        form_login = LoginForm(data=request.POST)
+        if form_login.is_valid():
+            username = request.POST["username"]
+            password = request.POST["password"]
+            usuario = authenticate(request, username=username, password=password)
+            if usuario is not None:
+                login(request, usuario)
+                return redirect('listar_tarefas')
+            else:
+                messages.error(request, 'As credenciais estão incorretas')
+                return redirect('logar_usuario')
     else:
-        form_login = AuthenticationForm()
+        form_login = LoginForm()
     return render(request, 'usuarios/login.html', {"form_login": form_login})
 
 def deslogar_usuario(request):

@@ -18,7 +18,7 @@
         <a class="nav-link" href="{% url 'listar_tarefas' %}">Listar Tarefas</a>
       </li>
         <li class="nav-item active">
-        <a class="nav-link" href="#">{{request.user.username}}</a>
+        <a class="nav-link" href="#">{{request.user.nome}}</a>
         </li>
         <li class="nav-item active">
         <a class="nav-link" href="{% url 'deslogar_usuario' %}">Deslogar</a>
